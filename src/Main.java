@@ -1,5 +1,6 @@
 import common.Player;
 import games.Blackjack;
+import games.Game;
 import strategies.Human;
 
 import java.util.Scanner;
@@ -16,23 +17,33 @@ public class Main {
         }
 
         System.out.println("What game would you like to play?");
-        System.out.println("Enter 1 for BlackJack, 2 for 5 Card Draw, 3 for ...");
-        System.out.print("> ");
+        for (Game game : Game.values()) {
+            System.out.printf("%s: %s\n", game.getKey(), game.getName());
+        }
 
+        Game game;
         Scanner scanner = new Scanner(System.in);
-        int userChoice = scanner.nextInt();
-        switch (userChoice) {
-            case 1:
+        while (true) {
+            System.out.print("> ");
+            String input = scanner.nextLine();
+            game = Game.getGameByKey(input);
+            if (game != null) {
+                break;
+            } else {
+                System.out.println("Invalid choice. Please enter a valid key.");
+            }
+        }
+
+        switch (game) {
+            case BLACKJACK:
                 Blackjack blackJack = new Blackjack();
                 blackJack.play(userNames);
                 break;
-            case 2:
-                // create an object of the 5 card draw poker game
-                // play
+            case POCKER_5_CARD_DRAW:
+                System.out.println("5 Card Draw Poker, not implemented yet.");
                 break;
-            case 3:
-                // create an object of the 7 card draw poker game
-                // play
+            case POCKER_7_CARD_DRAW:
+                System.out.println("7 Card Draw Poker, not implemented yet.");
                 break;
             default:
                 System.out.println("Invalid choice");
