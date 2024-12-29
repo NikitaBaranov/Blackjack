@@ -15,10 +15,6 @@ public class Deck {
         }
     }
 
-    public List<Card> getCards() {
-        return cards;
-    }
-
     public void shuffle() {
         for (int i = 0; i < cards.size(); i++) {
             int randomIndex = (int) (Math.random() * cards.size());
