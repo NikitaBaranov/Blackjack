@@ -3,18 +3,15 @@ import games.Blackjack;
 import games.Game;
 import strategies.Human;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
         System.out.println("Let's play a game!");
-        int numberOfPlayers = getNumberOfPlayers();
 
-        String[] userNames = new String[numberOfPlayers];
-        for (int i = 0; i < numberOfPlayers; i++) {
-            String userName = getUserName(i + 1);
-            userNames[i] = userName;
-        }
+        List<Player> players = getPlayers();
 
         System.out.println("What game would you like to play?");
         for (Game game : Game.values()) {
@@ -37,7 +34,7 @@ public class Main {
         switch (game) {
             case BLACKJACK:
                 Blackjack blackJack = new Blackjack();
-                blackJack.play(userNames);
+                blackJack.play(players);
                 break;
             case POCKER_5_CARD_DRAW:
                 System.out.println("5 Card Draw Poker, not implemented yet.");
@@ -48,6 +45,23 @@ public class Main {
             default:
                 System.out.println("Invalid choice");
         }
+    }
+
+    private static List<Player> getPlayers() {
+        int numberOfPlayers = getNumberOfPlayers();
+
+        String[] userNames = new String[numberOfPlayers];
+        for (int i = 0; i < numberOfPlayers; i++) {
+            String userName = getUserName(i + 1);
+            userNames[i] = userName;
+        }
+        // Create players
+        List<Player> players = new ArrayList<>();
+        for (String userName : userNames) {
+            players.add(new Player(userName, new Human()));
+        }
+
+        return players;
     }
 
     private static int getNumberOfPlayers() {

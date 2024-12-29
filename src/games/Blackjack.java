@@ -9,14 +9,9 @@ import java.util.*;
 public class Blackjack {
     private static final int BLACKJACK = 21;
 
-    public void play(String[] userNames) {
+    public void play(List<Player> players) {
         System.out.println("Playing Blackjack!");
 
-        // Create players
-        List<Player> players = new ArrayList<>();
-        for (String userName : userNames) {
-            players.add(new Player(userName, new Human()));
-        }
         Player dealer = new Player("Dealer", new AI(16));
         System.out.printf("Players at the table, left to right: %s\n",
                 String.join(", ", players.stream().map(Player::getName).toList()));
@@ -84,7 +79,7 @@ public class Blackjack {
             }
         }
 
-        // Clean hands
+        // Clear hands
         for (Player player : players) {
             player.getHand().clearHand();
         }
@@ -121,11 +116,13 @@ public class Blackjack {
             Decision decision = player.getStrategy().makeDecision(calculateHandValue(player.getHand()));
             switch (decision) {
                 case HIT:
-                    hit(player, deck);
+                    Card card = deck.dealCard();
+                    System.out.printf("%s hits and receives %s.\n", player.getName(), card);
+                    player.getHand().addCard(card);
                     System.out.printf("%s's hand: %s\n", player.getName(), formHand(player.getHand(), false));
                     break;
                 case STAND:
-                    stand(player);
+                    System.out.println(player.getName() + " stands.");
                     playing = false;
                     break;
             }
@@ -139,16 +136,6 @@ public class Blackjack {
         }
 
         return false;
-    }
-
-    private void hit(Player player, Deck deck) {
-        Card card = deck.dealCard();
-        System.out.printf("%s hits and receives %s.\n", player.getName(), card);
-        player.getHand().addCard(card);
-    }
-
-    private void stand(Player player) {
-        System.out.println(player.getName() + " stands.");
     }
 
     private String formHand(Hand hand, boolean hideSecondCard) {
