@@ -2,7 +2,6 @@ package games;
 
 import common.*;
 import strategies.AI;
-import strategies.Human;
 
 import java.util.*;
 
