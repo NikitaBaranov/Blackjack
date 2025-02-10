@@ -9,7 +9,7 @@ public class Deck {
     public Deck() {
         cards = new ArrayList<>(52);
         for (CardSuit suit : CardSuit.values()) {
-            for (CardValue value : CardValue.values()) {
+            for (CardRank value : CardRank.values()) {
                 cards.add(new Card(suit, value));
             }
         }

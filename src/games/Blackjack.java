@@ -150,10 +150,11 @@ public class Blackjack {
         int aces = 0;
 
         for (Card card : hand.getCards()) {
-            if (card.getValue() == 1) {
+            int cardValue = mapCardValue(card);
+            if (cardValue == 1) {
                 aces++;
             } else {
-                value += card.getValue();
+                value += cardValue;
             }
         }
 
@@ -166,5 +167,33 @@ public class Blackjack {
         }
 
         return value;
+    }
+
+    // Card value mapping depends on the game
+    private int mapCardValue(Card card) {
+        switch (card.getRank()) {
+            case CardRank.ACE:
+                return 1;
+            case CardRank.TWO:
+                return 2;
+            case CardRank.THREE:
+                return 3;
+            case CardRank.FOUR:
+                return 4;
+            case CardRank.FIVE:
+                return 5;
+            case CardRank.SIX:
+                return 6;
+            case CardRank.SEVEN:
+                return 7;
+            case CardRank.EIGHT:
+                return 8;
+            case CardRank.NINE:
+                return 9;
+            case CardRank.TEN, CardRank.JACK, CardRank.QUEEN, CardRank.KING:
+                return 10;
+            default:
+                throw new IllegalArgumentException("Invalid card value");
+        }
     }
 }

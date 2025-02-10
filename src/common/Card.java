@@ -2,19 +2,23 @@ package common;
 
 public class Card {
     private final CardSuit suit;
-    private final CardValue value;
+    private final CardRank rank;
 
-    public Card(CardSuit suit, CardValue value) {
+    public Card(CardSuit suit, CardRank value) {
         this.suit = suit;
-        this.value = value;
+        this.rank = value;
     }
 
-    public int getValue() {
-        return value.getValue();
+    public CardSuit getSuit() {
+        return suit;
+    }
+
+    public CardRank getRank() {
+        return rank;
     }
 
     @Override
     public String toString() {
-        return String.format("%s of %s (%s%d)", value.getName(), suit.getName(), suit.getSymbol(), value.getValue());
+        return String.format("%s of %s (%s%d)", rank.getName(), suit.getName(), suit.getSymbol(), rank.getRank());
     }
 }

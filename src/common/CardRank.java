@@ -1,6 +1,6 @@
 package common;
 
-public enum CardValue {
+public enum CardRank {
     ACE("Ace", 1),
     TWO("Two", 2),
     THREE("Three", 3),
@@ -11,24 +11,24 @@ public enum CardValue {
     EIGHT("Eight", 8),
     NINE("Nine", 9),
     TEN("Ten", 10),
-    JACK("Jack", 10),
-    QUEEN("Queen", 10),
-    KING("King", 10);
+    JACK("Jack", 11),
+    QUEEN("Queen", 12),
+    KING("King", 13);
 
     private final String name;
-    private final int value;
+    private final int rank;
 
-    CardValue(String name, int value) {
+    CardRank(String name, int rank) {
         this.name = name;
-        this.value = value;
+        this.rank = rank;
     }
 
     public String getName() {
         return name;
     }
 
-    public int getValue() {
-        return value;
+    public int getRank() {
+        return rank;
     }
 
     @Override
